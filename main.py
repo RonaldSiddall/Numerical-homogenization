@@ -13,7 +13,7 @@ data_source_dir_3 = (
 source_dirs = [data_source_dir_1, data_source_dir_2, data_source_dir_3]
 
 name_of_file_with_results = "ukazka"
-output_dir = "C:/Plocha/"
+output_dir = "C:/Plocha/Semestrální projekt/Python skripty/results_elastic_tensor/"
 
 # visualization of individual .vtu files, stress = "stress", displacement = "displacement" etc.
 visualize_all_vtu_files(source_dirs, "displacement")
