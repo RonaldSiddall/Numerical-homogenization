@@ -81,23 +81,24 @@ def compute_final_constants_voigt_form(vtu_file_dir):
 
 
 """""
-Maybe this variant to take make a general method to intake a function?
-Just an idea how to make a generalised method.
+Maybe try this variant to take make a general method to intake a function?
+Just an idea how to make a generalised method and improve the code.
 
 def compute_some_function_for_more_files(functions, vtu_dirs):
     results = []
-    for function in function:
+    for function in functions:
         for vtu_file in vtu_dirs:
             results.append(function(vtu_file))
     return results
+    
+    I understand this method would not work in this form, but perhaps worth thinking about?
 """
 
-"""""
+""""
 From this point forward, all the above methods are used again, but for more data files.
 In other words the methods below compute the complete effective elastic tensor 
 by using the above methods on all the data files. They do so at the same time.
 
-Below all the methods for more data_files are written out 
 """
 
 
@@ -162,7 +163,5 @@ def compute_effect_elast_constants_more_files(vtu_dirs):
 def compute_final_constants_voigt_form_whole_tensor(vtu_dirs):
     effective_elastic_tensor_constants = []
     for vtu_file in vtu_dirs:
-        effective_elastic_tensor_constants.append(
-            compute_final_constants_voigt_form(vtu_file)
-        )
+        effective_elastic_tensor_constants.append(compute_final_constants_voigt_form(vtu_file))
     return effective_elastic_tensor_constants
