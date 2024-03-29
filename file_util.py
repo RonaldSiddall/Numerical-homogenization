@@ -1,6 +1,6 @@
 import os
 import shutil
-from computing import compute_stress_voigt_form
+from computing import compute_final_constants_voigt_form_whole_tensor
 
 """""
 Tyto metody jsem připravil pro případné přemísťovaní souborů, teď nejsou užívané, protože
@@ -19,10 +19,8 @@ def relocate_3_files(source_dirs, destination_dirs):
 """
 
 
-def elastic_coefficients_to_txt(vtu_file_dirs, name_of_file, file_path):
-    coefficients = []
-    for vtu_file in vtu_file_dirs:
-        coefficients.append(compute_stress_voigt_form(vtu_file))
+def effective_elastic_tensor_to_txt(vtu_file_dirs, name_of_file, file_path):
+    coefficients = compute_final_constants_voigt_form_whole_tensor(vtu_file_dirs)
     file_path = file_path + name_of_file + ".txt"
     with open(file_path, "w") as txt_file:
         txt_file.write(
@@ -41,7 +39,7 @@ def elastic_coefficients_to_txt(vtu_file_dirs, name_of_file, file_path):
             f"C =         {coefficients[0][1]}          {coefficients[1][1]}        {coefficients[2][1]/2}\n"
         )
         txt_file.write(
-            f"            {coefficients[0][2]}          {coefficients[1][2]}      {coefficients[2][2]/2}\n\n\n"
+            f"            {coefficients[0][2]}         {coefficients[1][2]}      {coefficients[2][2]/2}\n\n\n"
         )
         txt_file.write(
             "--------------------------------------------------------------------------------------------\n"
