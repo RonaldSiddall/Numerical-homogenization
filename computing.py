@@ -82,7 +82,7 @@ def compute_final_constants_voigt_form(vtu_file_dir):
 
 """""
 Maybe try this variant to take make a general method to intake a function?
-Just an idea how to make a generalised method and improve the code.
+Just an idea on how to make a generalised method and how to improve the code structure
 
 def compute_some_function_for_more_files(functions, vtu_dirs):
     results = []
