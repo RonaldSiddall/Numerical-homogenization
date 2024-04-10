@@ -1,22 +1,33 @@
+import time
 from EffectiveElasticTensor import EffectiveElasticTensor
+from ConfigManager import ConfigManager
 
-#data source directories
-data_source_dir_1 = "C:/Plocha/Semestral project/Python skripts/data_vtu/Case_01/mechanics-000001.vtu"
-data_source_dir_2 = "C:/Plocha/Semestral project/Python skripts/data_vtu/Case_02/mechanics-000001.vtu"
-data_source_dir_3 = "C:/Plocha/Semestral project/Python skripts/data_vtu/Case_03/mechanics-000001.vtu"
-source_dirs = [data_source_dir_1, data_source_dir_2, data_source_dir_3]
+config_file = "C:/Plocha/Semestral_project/Python_skripts/config_file.yaml"
+file_msh = ("C:/Plocha/Semestral_project/Python_skripts/data_vtu/temp_mesh_for_template.msh")
+time_decider = ConfigManager(config_file).get_measure_time_of_computation()
+if time_decider == "yes":
+    print("\n=========================================================================\n")
+    print("         The effective elastic tensor was successfully computed!")
+    print("\n=========================================================================\n")
+    print("Additional information about the simulation process:")
+    print("------------------------------------------------------")
+    print("  - The results were saved in a file named '"
+        + ConfigManager(config_file).get_name_of_file_with_tensor()
+        + ".txt' that was created in this directory:")
+    print("    " + ConfigManager(config_file).get_output_dir_of_file_with_tensor())
 
-name_of_file_with_results = "example"
-output_dir = "C:/Plocha/Semestral project/Python skripts/results_elastic_tensor/"
-
-# visualization of individual .vtu files, "stress", "displacement", "region_id". "displacement_divergence" etc.
-effective_elastic_tensor = EffectiveElasticTensor(source_dirs)
-
-# Call the visualize_all_vtu_files method on the instance
-effective_elastic_tensor.visualize_all_vtu_files("region_id")
-
-# creates a file with the resulting effective elastic tensor
-effective_elastic_tensor.get_tensor_in_txt(name_of_file_with_results,output_dir)
-
-#Confirms that the file was created and the output directory is also displayed
-print(f"Byl vytvořen soubor {name_of_file_with_results}.txt, který byl uložen v adresáři {output_dir}")
+    start_time = time.time()
+    EffectiveElasticTensor(file_msh, config_file).get_tensor_in_txt()
+    end_time = time.time()
+    print("\n  - Time it took to do the computation:", end_time - start_time, "seconds")
+else:
+    print("\n=========================================================================\n")
+    print("         The effective elastic tensor was successfully computed!")
+    print("\n=========================================================================\n")
+    print("Additional information about the simulation process:")
+    print("------------------------------------------------------")
+    print("  - The results were saved in a file named '"
+        + ConfigManager(config_file).get_name_of_file_with_tensor()
+        + ".txt' that was created in this directory:")
+    print("    " + ConfigManager(config_file).get_output_dir_of_file_with_tensor())
+    EffectiveElasticTensor(file_msh, config_file).get_tensor_in_txt()

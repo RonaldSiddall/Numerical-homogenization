@@ -1,0 +1,66 @@
+
+ # This YAML configuration file is used to specify parameters and settings for the simulation process
+ # of the numerical homogenization of mechanical properties for 2D problems.
+ 
+ # The config file allows the user to change the simulation parameters such as mesh dimensions, material
+ # properties, load matrices and has a choice between three different geometries
+ 
+ # Apart from that the user can adjust the directory settings for input/output files,
+ # settings for the file with the results and additional settings for the simulation process.
+
+simulation_parameters:
+  n: 2  # Amount of regions in mesh is n^2 = mesh has dimensions n x n
+  sample: "chessboard"  # Type of geometry - "chessboard", "sandwich", "fractures"
+  Y1: 100  # Young modulus Y1
+  Y2: 50  # Young modulus Y2
+  E1:       # first load matrix
+    - [1, 0]
+    - [0, 0]
+  E2:       # second load matrix
+    - [0, 0]
+    - [0, 1]
+  E3:       # third load matrix
+    - [0, 1]
+    - [1, 0]
+
+directories:
+  # if the directory does not exist, then it is created
+  # if the directory already exists, then all the contents within the directory are deleted beforehand
+  dir_where_yamls_are_created: "C:/Plocha/Semestral_project/Python_skripts/data_vtu/yamls_dir"
+  absolute_path_to_yaml_template: "C:/Plocha/Semestral_project/Python_skripts/data_vtu/template.yaml"
+  directory_where_vtus_are_created: "C:/Plocha/Semestral_project/Python_skripts/data_vtu/vtu_files"
+
+results_file_settings:
+  #the file is always a .txt file
+  name_of_file_with_tensor: "soubor"
+  # if the output directory for the file with the results does not exist, then it is created
+  # if the output directory already exists, then all the contents within the dir are deleted beforehand
+  output_dir_of_file_with_tensor: "C:/Plocha/Semestral_project/Python_skripts/results_elastic_tensor"
+
+additional_settings:
+  want_to_display_visualisation: "no"  # Do you want to display visualization ? - write "yes" to display
+  what_to_display: "displacement"  # What to display ("displacement", "stress", "region_id" etc.)
+
+  delete_yaml_dir_after_simulation: "yes"  # Do you want to delete the YAML directory after simulation?
+  delete_vtu_dir_after_simulation: "yes"  # Do you want to delete the VTU directory after simulation?
+
+  # Do you want to change the names of the computed YAML files?
+  # "yes" - then the yamls are created with the names taken from new_names_of_yamls
+  # "no" - default setting of names - results1.yaml, results2.yaml, results3.yaml
+  change_names_of_computed_yamls: "no"
+  new_names_of_yamls: ["name1.yaml","name2.yaml","name3.yaml"]  # New names for computed YAML files
+
+  # Do you want to change the names of the computed output directories?
+  # "yes" - then the output directories are created with the names taken from new_names_of_output_dirs
+  # "no" - default setting of names - output1, output2, output3
+  change_names_of_computed_output_dirs: "no"
+  new_names_of_output_dirs: ["name1","name2","name3"]  # New names for computed output dirs
+
+  # Do you want to change the names of the computed vtu files?
+  # "yes" - then the vtu files are created with the names taken from new_names_of_vtu_files
+  # "no" - default setting of vtu file names - 1_mechanics-00000.vtu, 2_mechanics-00000.vtu, 3_mechanics-00000.vtu
+  change_names_of_computed_vtu_files: "no"
+  new_names_of_vtu_files: [ "name1.vtu","name2.vtu","name3.vtu" ]  # New names for computed output dirs
+
+  # Do you want to measure the time it took to do the computation?
+  measure_time_of_computation: "yes"

@@ -1,20 +1,62 @@
+import shutil
 import numpy as np
+import os
 import sympy as sp
+from ConfigManager import ConfigManager
 from ruamel.yaml import YAML
+
 yaml = YAML()
 
 
 class GenerateVtuFiles:
-    def __init__(self, file_msh, Y1, Y2, E1, E2, E3):
+    def __init__(self, file_msh, config_file):
         self.mesh = file_msh
-        self.Y1 = Y1
-        self.Y2 = Y2
-        self.E1 = E1
-        self.E2 = E2
-        self.E3 = E3
+        self.file_msh = file_msh
+        self.E1 = ConfigManager(config_file).get_E1()
+        self.E2 = ConfigManager(config_file).get_E2()
+        self.E3 = ConfigManager(config_file).get_E3()
+        self.Y1 = ConfigManager(config_file).get_Y1()
+        self.Y2 = ConfigManager(config_file).get_Y2()
+        self.dir_where_yamls_are_created = ConfigManager(
+            config_file
+        ).get_dir_where_yamls_are_created()
+        self.absolute_path_to_yaml_template = ConfigManager(
+            config_file
+        ).get_absolute_path_to_yaml_template()
+        self.directory_where_vtus_are_created = ConfigManager(
+            config_file
+        ).get_directory_where_vtus_are_created()
+        self.change_names_of_computed_yamls = ConfigManager(
+            config_file
+        ).get_change_names_of_computed_yamls()
+        self.new_names_of_yamls = ConfigManager(config_file).get_new_names_of_yamls()
+        self.change_names_of_computed_output_dirs = ConfigManager(
+            config_file
+        ).get_change_names_of_computed_output_dirs()
+        self.new_names_of_output_dirs = ConfigManager(
+            config_file
+        ).get_new_names_of_output_dirs()
+        self.change_names_of_computed_vtu_files = ConfigManager(
+            config_file
+        ).get_change_names_of_computed_vtu_files()
+        self.new_names_of_vtu_files = ConfigManager(
+            config_file
+        ).get_new_names_of_vtu_files()
 
-    def get_boundary_conditions_strings(self):
-        x, y = sp.symbols('x, y')
+    # this method deletes all contents within some directory_path
+    def delete_directory_contents(directory_path):
+        for file in os.listdir(directory_path):
+            file_path = os.path.join(directory_path, file)
+            try:
+                if os.path.isfile(file_path) or os.path.islink(file_path):
+                    os.unlink(file_path)
+                elif os.path.isdir(file_path):
+                    shutil.rmtree(file_path)
+            except Exception as e:
+                print(f"Error deleting {file_path}: {e}")
+
+    def compute_boundary_conditions_strings(self):
+        x, y = sp.symbols("x, y")
         vector_xy = np.array([x, y])
 
         # np.dot is the dot product of matrix E1 and the vector_xy = [x, y]
@@ -34,35 +76,121 @@ class GenerateVtuFiles:
         u3_s = "[" + str(u3)[1:-1].replace(" ", ",") + ",0" + "]"
         return u1_s, u2_s, u3_s
 
-    def get_yamls(self):
-        names_files = ["results1.yaml", "results2.yaml", "results3.yaml"]
-        vector_u = self.get_boundary_conditions_strings()
-        file_msh = "/Plocha/Semestral project/Python skripts/data_vtu/testing_template.msh"
-        Y1 = self.Y1
-        Y2 = self.Y2
+    # this method prepares the yamls that are then passed on to be simulated using Flow123d
+    # the yamls are created by rewritting a template with the specific parameters the user chose
+    def compute_yamls(self):
+        vector_u = self.compute_boundary_conditions_strings()
+        # checks if the user wants to specify the names of the yaml files or use the default
+        if self.change_names_of_computed_yamls != "yes":
+            names_files = ["results1.yaml", "results2.yaml", "results3.yaml"]
+        else:
+            names_files = self.new_names_of_yamls
+
+        # Checks if the directory where yamls should be created exists, if not, creates it
+        os.makedirs(self.dir_where_yamls_are_created, exist_ok=True)
+        # Deletes all contents within the destination directory
+        GenerateVtuFiles.delete_directory_contents(self.dir_where_yamls_are_created)
         for i in range(3):
-            with open("C:/Plocha/Semestral project/Python skripts/data_vtu/template.yaml", 'r') as file:
+            with open(self.absolute_path_to_yaml_template, "r") as file:
                 data = yaml.load(file)
-                data['problem']['mesh']['mesh_file'] = "/C"+ file_msh
-                data['problem']['flow_equation']['mechanics_equation']['input_fields'][0]['young_modulus'] = Y1
-                data['problem']['flow_equation']['mechanics_equation']['input_fields'][1]['young_modulus'] = Y2
-                data['problem']['flow_equation']['mechanics_equation']['input_fields'][2]['bc_displacement']['value'] = vector_u[i]
-            with open("C:/Plocha/Semestral project/Python skripts/data_vtu/outputs/"+names_files[i], 'w') as file:
+                data["problem"]["mesh"]["mesh_file"] = self.file_msh.replace("C:", "/C")
+                data["problem"]["flow_equation"]["mechanics_equation"]["input_fields"][
+                    0
+                ]["young_modulus"] = self.Y1
+                data["problem"]["flow_equation"]["mechanics_equation"]["input_fields"][
+                    1
+                ]["young_modulus"] = self.Y2
+                data["problem"]["flow_equation"]["mechanics_equation"]["input_fields"][
+                    2
+                ]["bc_displacement"]["value"] = vector_u[i]
+
+            yaml_path = os.path.join(self.dir_where_yamls_are_created, names_files[i])
+            with open(yaml_path, "w") as file:
                 yaml.dump(data, file)
-            with open("C:/Plocha/Semestral project/Python skripts/data_vtu/outputs/"+names_files[i], "r") as file:
+
+            with open(yaml_path, "r") as file:
                 content = file.read()
-                content = content.replace("'"+vector_u[i]+"'", vector_u[i])
-            with open("C:/Plocha/Semestral project/Python skripts/data_vtu/outputs/"+names_files[i], "w") as file:
+                content = content.replace("'" + vector_u[i] + "'", vector_u[i])
+
+            with open(yaml_path, "w") as file:
                 file.write(content)
-    """""
-    def extract_specific_file(source_file_path, destination_dir):
-        filename = os.path.basename(source_file_path)
-        destination_file_path = os.path.join(destination_dir, filename)
-        shutil.copyfile(source_file_path, destination_file_path)
 
-    def relocate_3_files(source_dirs, destination_dirs):
-        for source_dir in source_dirs:
-            for destination_dir in destination_dirs:
-                extract_specific_file(source_dir, destination_dir)
+    # this method runs each yaml created in the previous method into the simulator Flow123d
+    # the outputs after the simulation of each file is then saved within a directory the user chose
+    def compute_outputs_mechanics(self):
+        self.compute_yamls()
 
-    """
+        # the path has to be /C/, so that is the reason we reaplce C: with /C
+        changed_directory = self.dir_where_yamls_are_created.replace("C:", "/C")
+
+        # checks if the user wants to specify the names of the output directories or use the default
+        if self.change_names_of_computed_output_dirs == "yes":
+            output_dirs = self.new_names_of_output_dirs
+        else:
+            output_dirs = ["output1", "output2", "output3"]
+        for i, yaml_file in enumerate(os.listdir(self.dir_where_yamls_are_created)):
+            output_dir = output_dirs[i]
+            yaml_path = os.path.join(changed_directory, yaml_file).replace("\\", "/")
+            output_path = os.path.join(changed_directory, output_dir).replace("\\", "/")
+
+            # this command runs the simulator flow123d
+            # -s -- solve for give yaml_path
+            # -o -- defines the output_path where the results should be saved - users choice
+            # > NUL 2>&1 - When flow123d runs it outputs a message with a lot of information
+            # by using > NUL 2>&1 we choose not to display this message after running the command
+            command = f"flow123d -s {yaml_path} -o {output_path} > NUL 2>&1"
+            os.system(command)
+            # this is to ensure that the indexes do not overflow
+            if i == 2:
+                break
+
+    def compute_vtu_files(self):
+        self.compute_outputs_mechanics()
+        extracted_files = []
+        if self.change_names_of_computed_output_dirs == "yes":
+            names_outputs = self.new_names_of_output_dirs
+        else:
+            names_outputs = ["output1", "output2", "output3"]
+        output_dirs = [
+            self.dir_where_yamls_are_created + "/" + names_outputs[0],
+            self.dir_where_yamls_are_created + "/" + names_outputs[1],
+            self.dir_where_yamls_are_created + "/" + names_outputs[2],
+        ]
+
+        # Checks if the directory where vtus should be created exists, if not, creates it
+        os.makedirs(self.directory_where_vtus_are_created, exist_ok=True)
+
+        # Deletes all contents within the destination directory
+        GenerateVtuFiles.delete_directory_contents(
+            self.directory_where_vtus_are_created
+        )
+        # checks if the user wants to specify the names of the vtu files or use the default
+        if self.change_names_of_computed_vtu_files == "yes":
+            new_vtu_file_names = self.new_names_of_vtu_files
+        else:
+            new_vtu_file_names = [
+                f"{i}_mechanics-00000.vtu" for i in range(1, len(output_dirs) + 1)
+            ]
+
+        for i, output_dir in enumerate(output_dirs, 1):
+            vtu_file_path = os.path.join(
+                output_dir, "mechanics", "mechanics-000000.vtu"
+            )
+
+            # constructs a new file name
+            new_filename = f"{new_vtu_file_names[i - 1]}"
+
+            # copies the vtu file from the original dir to the destination with the new filename
+            shutil.copy(
+                vtu_file_path,
+                os.path.join(self.directory_where_vtus_are_created, new_filename),
+            )
+
+            # adds the path to the extracted vtu file to the list of extracted files
+            extracted_files.append(
+                os.path.join(
+                    self.directory_where_vtus_are_created, new_filename
+                ).replace("\\", "/")
+            )
+
+        return extracted_files

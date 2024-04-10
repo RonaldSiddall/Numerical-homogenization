@@ -2,7 +2,7 @@ import numpy as np
 import pyvista as pv
 
 
-# this method computes the areas of every element in a vtu file
+# this method computes the areas of every element in a vtu config_file
 def compute_area_of_elements_one_file(vtu_file):
     mesh = pv.UnstructuredGrid(vtu_file)
 
