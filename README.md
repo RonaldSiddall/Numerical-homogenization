@@ -1,0 +1,3 @@
+# Semestrální projekt - Ronald Ch. Siddall, AVI FM TUL
+## Numerická homogenizace mechanických vlastností
+Zde se v budoucnu zapíše README, kde bude popsáno správné použivání programu tj. uživatelská příručka a všeobecné info o všem...
