@@ -2,11 +2,12 @@ import sys
 import time
 from EffectiveElasticTensor import EffectiveElasticTensor
 from ConfigManager import ConfigManager
+from GenerateMesh import GenerateMesh
 
 
 def main(config_file):
     try:
-        file_msh = "C:/Plocha/Semestral_project/Python_skripts/data_vtu/temp_mesh_for_template.msh"
+        file_msh = GenerateMesh(config_file).generate_mesh_based_on_sample()
         time_decider = ConfigManager(config_file).get_measure_time_of_computation()
         if time_decider == "yes":
             print("\n=========================================================================\n")
@@ -36,7 +37,6 @@ def main(config_file):
             EffectiveElasticTensor(file_msh, config_file).get_tensor_in_txt()
     except Exception as error_mess:
         # If any error occurs during execution, print the error message
-        # If any error occurs during execution, print the error message
         print("---------------------------------------------------------------------------")
         print("\nAn error occurred during execution. The error message is written below:\n")
         print(str(error_mess) + "\n")
@@ -59,7 +59,7 @@ if __name__ == "__main__":
         # Extract the path to the config file from the command-line arguments
         config_file = sys.argv[1]
 
-        # Call the main function with the config file path as an argument
+        # Calls the main function with the config file path as an argument
         main(config_file)
 
     except Exception as error_message:

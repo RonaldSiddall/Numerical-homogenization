@@ -9,10 +9,11 @@
  # settings for the file with the results and additional settings for the simulation process.
 
 simulation_parameters:
-  n: 2  # Amount of regions in mesh is n^2 = mesh has dimensions n x n
-  sample: "chessboard"  # Type of geometry - "chessboard", "sandwich", "fractures"
-  Y1: 100  # Young modulus Y1
-  Y2: 50  # Young modulus Y2
+  n: 5  # Amount of regions in mesh is n^2 = mesh has dimensions n x n
+  sample: "chessboard"  # Type of geometry - "chessboard", "sandwich", TBD: "fractures"
+  Y1: 100  # Young modulus Y1 for region A
+  Y2: 50  # Young modulus Y2 for region B
+  lc_parameter: 0.16
   E1:       # first load matrix
     - [1, 0]
     - [0, 0]
@@ -27,8 +28,10 @@ directories:
   # if the directory does not exist, then it is created
   # if the directory already exists, then all the contents within the directory are deleted beforehand
   dir_where_yamls_are_created: "C:/Plocha/Semestral_project/Python_skripts/data_vtu/yamls_dir"
-  absolute_path_to_yaml_template: "C:/Plocha/Semestral_project/Python_skripts/data_vtu/template.yaml"
+  absolute_path_to_yaml_template: "C:/Plocha/Semestral_project/Python_skripts/data_vtu/TEMPLATE_DO_NOT_DELETE/template.yaml"
   directory_where_vtus_are_created: "C:/Plocha/Semestral_project/Python_skripts/data_vtu/vtu_files"
+  dir_where_mesh_and_geo_are_created: "C:/Plocha/Semestral_project/Python_skripts/data_vtu/"
+
 
 results_file_settings:
   #the file is always a .txt file
@@ -38,11 +41,11 @@ results_file_settings:
   output_dir_of_file_with_tensor: "C:/Plocha/Semestral_project/Python_skripts/results_elastic_tensor"
 
 additional_settings:
-  want_to_display_visualisation: "no"  # Do you want to display visualization ? - write "yes" to display
-  what_to_display: "displacement"  # What to display ("displacement", "stress", "region_id" etc.)
+  want_to_display_visualisation: "yes"  # Do you want to display visualization ? - write "yes" to display
+  what_to_display: "region_id"  # What to display ("displacement", "stress", "region_id" etc.)
 
-  delete_yaml_dir_after_simulation: "yes"  # Do you want to delete the YAML directory after simulation?
-  delete_vtu_dir_after_simulation: "yes"  # Do you want to delete the VTU directory after simulation?
+  delete_yaml_dir_after_simulation: "no"  # Do you want to delete the YAML directory after simulation?
+  delete_vtu_dir_after_simulation: "no"  # Do you want to delete the VTU directory after simulation?
 
   # Do you want to change the names of the computed YAML files?
   # "yes" - then the yamls are created with the names taken from new_names_of_yamls
@@ -61,6 +64,22 @@ additional_settings:
   # "no" - default setting of vtu file names - 1_mechanics-00000.vtu, 2_mechanics-00000.vtu, 3_mechanics-00000.vtu
   change_names_of_computed_vtu_files: "no"
   new_names_of_vtu_files: [ "name1.vtu","name2.vtu","name3.vtu" ]  # New names for computed output dirs
+
+  # Do you want to change the name of the generated mesh file?
+  # "yes" - then the mesh file is created with the name taken from new_name_of_mesh
+  # "no" - default setting of mesh file is given - generated_mesh.msh
+  change_name_of_msh_file: "no"
+  new_name_of_mesh: "name1.msh"
+
+  # Do you want to create a .geo file with the geometry (points, lines, surfaces, phys. groups)?
+  create_geo_file: "no"
+
+  # if you chose "yes" to create geo file, then this is relevant, otherwise not:
+  # Do you want to change the name of the generated mesh file?
+  # "yes" - then the geo file is created with the name taken from new_name_of_geo
+  # "no" - default setting of mesh file is given - generated_geo.geo_unrolled
+  change_name_of_geo_file: "no"
+  new_name_of_geo: "name1.geo_unrolled"
 
   # Do you want to measure the time it took to do the computation?
   measure_time_of_computation: "yes"

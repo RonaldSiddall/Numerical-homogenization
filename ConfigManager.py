@@ -26,6 +26,9 @@ class ConfigManager:
     def get_Y2(self):
         return self.config_data["simulation_parameters"]["Y2"]
 
+    def get_lc(self):
+        return self.config_data["simulation_parameters"]["lc_parameter"]
+
     def get_E1(self):
         return self.config_data["simulation_parameters"]["E1"]
 
@@ -43,6 +46,9 @@ class ConfigManager:
 
     def get_directory_where_vtus_are_created(self):
         return self.config_data["directories"]["directory_where_vtus_are_created"]
+
+    def dir_where_mesh_and_geo_are_created(self):
+        return self.config_data["directories"]["dir_where_mesh_and_geo_are_created"]
 
     def get_name_of_file_with_tensor(self):
         return self.config_data["results_file_settings"]["name_of_file_with_tensor"]
@@ -79,6 +85,21 @@ class ConfigManager:
 
     def get_new_names_of_vtu_files(self):
         return self.config_data["additional_settings"]["new_names_of_vtu_files"]
+
+    def get_change_name_of_msh_file(self):
+        return self.config_data["additional_settings"]["change_name_of_msh_file"]
+
+    def get_create_geo_file(self):
+        return self.config_data["additional_settings"]["create_geo_file"]
+
+    def get_change_name_of_geo_file(self):
+        return self.config_data["additional_settings"]["change_name_of_geo_file"]
+
+    def get_new_name_of_geo(self):
+        return self.config_data["additional_settings"]["new_name_of_geo"]
+
+    def get_new_name_of_mesh(self):
+        return self.config_data["additional_settings"]["new_name_of_mesh"]
 
     def get_measure_time_of_computation(self):
         return self.config_data["additional_settings"]["measure_time_of_computation"]
