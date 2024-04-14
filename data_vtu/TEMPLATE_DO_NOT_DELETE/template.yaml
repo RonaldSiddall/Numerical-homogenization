@@ -29,11 +29,11 @@ problem: !Coupling_Sequential
           a_tol: 1e-20
           r_tol: 1e-15
         input_fields:
-          - region: podmnozina_A
+          - region: region_A
             young_modulus: 
             poisson_ratio: 0
 
-          - region: podmnozina_B
+          - region: region_B
             young_modulus: 
             poisson_ratio: 0
 
