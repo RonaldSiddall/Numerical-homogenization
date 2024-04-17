@@ -21,7 +21,7 @@ def main(config_file):
             print("    " + ConfigManager(config_file).get_output_dir_of_file_with_tensor())
 
             start_time = time.time()
-            EffectiveElasticTensor(file_msh, config_file).get_tensor_in_txt()
+            EffectiveElasticTensor(file_msh, config_file).get_tensor_in_txt_formatted()
             end_time = time.time()
             print("\n  - Time it took to do the computation:", end_time - start_time, "seconds")
         else:
@@ -34,7 +34,7 @@ def main(config_file):
                 + ConfigManager(config_file).get_name_of_file_with_tensor()
                 + ".txt' that was created in this directory:")
             print("    " + ConfigManager(config_file).get_output_dir_of_file_with_tensor())
-            EffectiveElasticTensor(file_msh, config_file).get_tensor_in_txt()
+            EffectiveElasticTensor(file_msh, config_file).get_tensor_in_txt_formatted()
     except Exception as error_mess:
         # If any error occurs during execution, print the error message
         print("---------------------------------------------------------------------------")

@@ -117,7 +117,7 @@ class GenerateVtuFiles:
             # -o -- defines the output_path where the results should be saved
             # > NUL 2>&1 - When flow123d runs it outputs a message with a lot of information
             # by using > NUL 2>&1 we choose not to display this message after running the command
-            command = f"flow123d -s {yaml_path} -o {output_path} > NUL 2>&1"
+            command = f"flow123d -s {yaml_path} -o {output_path} > /dev/null 2>&1"
             os.system(command)
 
             # this is to ensure that the indexes do not overflow

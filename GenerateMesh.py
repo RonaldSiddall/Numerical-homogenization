@@ -20,6 +20,8 @@ class GenerateMesh:
         gmsh.initialize()
         # setting of the MSG file version - for using Flow123d - 2.2 is needed
         gmsh.option.setNumber("Mesh.MshFileVersion", 2.2)
+        gmsh.option.setNumber("General.Terminal", 0)
+
         # Creates points in 2D for the square geometry
         for i in range(self.n + 1):
             for j in range(self.n + 1):
@@ -161,6 +163,7 @@ class GenerateMesh:
 
 
         gmsh.write(msh_file_path)
+        # CHECK IF FILE IS CREATED with 2.2
         # Reads the old contents of the original .msh file
         with open(msh_file_path, "r") as file:
             old_msh_contents = file.read()
