@@ -1,0 +1,15 @@
+This vector is the result of automatic simulation
+Each result is the sum of the residues
+Results are written as: (n+1, n):result
+Y1: 200
+Y2: 50
+------------------------------------------------
+(36,35): 0.2054086375399009
+(37,36): 0.10435722653596008
+(38,37): 0.18505418858096276
+(39,38): 0.09497417770482668
+(40,39): 0.16649859388268454
+-------------------------------------------------
+Optimal n not found within the given tolerance
+Tolerance: 0.01
+-------------------------------------------------
