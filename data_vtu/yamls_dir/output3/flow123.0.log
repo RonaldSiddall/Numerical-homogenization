@@ -1,0 +1,163 @@
+- -             [ Msg , null, "00:00:00.032", "/src/main.cc", 119, "display_version" ]
+  - This is Flow123d, version 3.9.0 commit: df80dc6
+- -             [ Msg , null, "00:00:00.032", "/src/main.cc", 121, "display_version" ]
+  - |
+    Branch: 3.9.1
+    Build: Aug 22 2022, 12:57:04 flags: -O3 -DNDEBUG -std=c++14 -pedantic -Wall -Wextra -Werror     -Wno-catch-value -Wno-deprecated-copy -Wno-misleading-indentation -Wno-implicit-fallthrough     -Wno-vla -Wno-unused-local-typedefs -Wno-deprecated-declarations
+    Fetch URL:  https://github.com/flow123d/flow123d
+- -             [ Msg , null, "00:00:00.069", "/src/io/msh_gmshreader.cc", 58, "read_nodes" ]
+  - - Reading nodes...
+- -             [ Msg , null, "00:00:00.072", "/src/io/msh_gmshreader.cc", 85, "read_nodes" ]
+  - ... 574 nodes read. 
+- -             [ Msg , null, "00:00:00.072", "/src/io/msh_gmshreader.cc", 91, "read_elements" ]
+  - - Reading elements...
+- -             [ Msg , null, "00:00:00.075", "/src/io/msh_gmshreader.cc", 159, "read_elements" ]
+  - ... 1062 bulk elements, 84 boundary elements. 
+- -             [ Msg , null, "00:00:00.076", "/src/mesh/mesh.cc", 808, "make_neighbours_and_edges" ]
+  - Created 1635 edges and 0 neighbours.
+- -             [ Msg , null, "00:00:00.077", "/src/mesh/bc_mesh.cc", 203, "make_neighbours_and_edges" ]
+  - Created 84 edges and 0 neighbours on boundary mesh.
+- -             [ Msg , null, "00:00:00.077", "/src/mesh/mesh.cc", 1048, "check_and_finish" ]
+  - |
+    ----------- Table of all regions: -----------
+     - Boundary elementary regions -
+    name                  id dim
+    .bottom_boundary       4   1
+    .left_boundary         1   1
+    .right_boundary        2   1
+    .top_boundary          3   1
+    
+     - Bulk elementary regions -
+    name                  id dim
+    region_A               5   2
+    region_B               6   2
+    
+     - Sets of regions -
+    name              contains regions
+    .BOUNDARY         [".left_boundary", ".right_boundary", ".top_boundary", ".bottom_boundary"]
+    ALL               [".left_boundary", ".right_boundary", ".top_boundary", ".bottom_boundary", "region_A", "region_B"]
+    BULK              ["region_A", "region_B"]
+    ---------------------------------------------
+    
+- -             [ Log , null, "00:00:00.083", "/src/io/output_vtk.cc", 107, "init_from_input" ]
+  - Writing flow output file: /C/Plocha/Semestral_project/Python_skripts/data_vtu/yamls_dir/output3/mechanics.pvd ... 
+- -             [ Log , null, "00:00:00.084", "/src/io/output_vtk.cc", 584, "write_head" ]
+  - write_head: Writing output file (head) /C/Plocha/Semestral_project/Python_skripts/data_vtu/yamls_dir/output3/mechanics.pvd ... 
+- -             [ Log , null, "00:00:00.085", "/src/io/output_vtk.cc", 590, "write_head" ]
+  - O.K.
+- -             [ Wrn , null, "00:00:00.089", "/src/io/output_time.cc", 161, "fix_main_file_extension" ]
+  - Renaming output file: /C/Plocha/Semestral_project/Python_skripts/data_vtu/yamls_dir/output3/flow_fields to /C/Plocha/Semestral_project/Python_skripts/data_vtu/yamls_dir/output3/flow_fields.pvd
+- -             [ Log , null, "00:00:00.091", "/src/io/output_vtk.cc", 107, "init_from_input" ]
+  - Writing flow output file: /C/Plocha/Semestral_project/Python_skripts/data_vtu/yamls_dir/output3/flow_fields.pvd ... 
+- -             [ Log , null, "00:00:00.092", "/src/io/output_vtk.cc", 584, "write_head" ]
+  - write_head: Writing output file (head) /C/Plocha/Semestral_project/Python_skripts/data_vtu/yamls_dir/output3/flow_fields.pvd ... 
+- -             [ Log , null, "00:00:00.093", "/src/io/output_vtk.cc", 590, "write_head" ]
+  - O.K.
+- -             [ Wrn , null, "00:00:00.104", "/src/coupling/hm_iterative.cc", 245, "HM_Iterative" ]
+  - |
+    
+    Used default values of Fields for equation flow:
+    ----------------------------------------------------------------------------------------------------
+     Field name                     Default value       Apply on regions
+     anisotropy                     1.0                 region_A region_B
+     cross_section                  1.0                 region_A region_B
+     conductivity                   1.0                 region_A region_B
+     sigma                          1.0                 region_A region_B
+     water_source_density           0.0                 region_A region_B
+     bc_type                        "none"              .left_boundary .right_boundary .top_boundary .bottom_boundary
+     init_pressure                  0.0                 region_A region_B
+     storativity                    0.0                 region_A region_B
+     extra_storativity              0.0                 region_A region_B
+     extra_water_source_density     0.0                 region_A region_B
+     init_piezo_head                0.0                 region_A region_B
+     bc_piezo_head                  0.0                 .left_boundary .right_boundary .top_boundary .bottom_boundary
+     bc_switch_piezo_head           0.0                 .left_boundary .right_boundary .top_boundary .bottom_boundary
+    ----------------------------------------------------------------------------------------------------
+    
+- -             [ Wrn , null, "00:00:00.107", "/src/coupling/hm_iterative.cc", 287, "zero_time_step" ]
+  - |
+    
+    Used default values of Fields for equation coupling_iterative:
+    ----------------------------------------------------------------------------------------------------
+     Field name                     Default value       Apply on regions
+     biot_alpha                     0.0                 region_A region_B
+     fluid_density                  0.0                 region_A region_B
+     gravity                        9.81                region_A region_B
+    ----------------------------------------------------------------------------------------------------
+    
+- -             [ Msg , null, "00:00:00.112", "/src/flow/darcy_flow_lmh.cc", 490, "zero_time_step" ]
+  - Flow zero time step - steady case
+- -             [ Msg , null, "00:00:00.120", "/src/flow/darcy_flow_lmh.cc", 598, "solve_nonlinear" ]
+  - [nonlinear solver] norm of initial residual: 0
+- -             [ Log , null, "00:00:00.121", "/src/la/linsys_PETSC.cc", 371, "solve" ]
+  - inserting petsc options: -ksp_type cg -pc_type icc  -pc_factor_levels 3 -ksp_diagonal_scale -ksp_diagonal_scale_fix -pc_factor_fill 6.0
+- -             [ Log , null, "00:00:00.122", "/src/la/linsys_PETSC.cc", 409, "solve" ]
+  - convergence reason 3, number of iterations is 0
+- -             [ Msg , null, "00:00:00.122", "/src/flow/darcy_flow_lmh.cc", 642, "solve_nonlinear" ]
+  - [schur solver] lin. it: 0, reason: 3, residual: 0
+- -             [ Msg , null, "00:00:00.122", "/src/flow/darcy_flow_lmh.cc", 651, "solve_nonlinear" ]
+  - [nonlinear solver] lin. it: 0, reason: 3, residual: 0
+- -             [ Log , null, "00:00:00.123", "/src/io/output_time.cc", 229, "write_time_frame" ]
+  - Skipping output stream: /C/Plocha/Semestral_project/Python_skripts/data_vtu/yamls_dir/output3/flow_fields.pvd in time: -1
+- -             [ Wrn , null, "00:00:00.129", "/src/mechanics/elasticity.cc", 499, "zero_time_step" ]
+  - |
+    
+    Used default values of Fields for equation mechanics:
+    ----------------------------------------------------------------------------------------------------
+     Field name                     Default value       Apply on regions
+     bc_traction                    0.0                 .left_boundary .right_boundary .top_boundary .bottom_boundary
+     bc_stress                      0.0                 .left_boundary .right_boundary .top_boundary .bottom_boundary
+     load                           0.0                 region_A region_B
+     fracture_sigma                 1.0                 region_A region_B
+     initial_stress                 0.0                 region_A region_B
+     cross_section_min              0.0                 region_A region_B
+    ----------------------------------------------------------------------------------------------------
+    
+- -             [ Log , null, "00:00:00.205", "/src/la/linsys_PETSC.cc", 371, "solve" ]
+  - inserting petsc options: -ksp_type cg -pc_type hypre -pc_hypre_type boomeramg
+- -             [ Log , null, "00:00:00.218", "/src/la/linsys_PETSC.cc", 409, "solve" ]
+  - convergence reason 2, number of iterations is 17
+- -             [ Msg , null, "00:00:00.219", "/src/mechanics/elasticity.cc", 518, "zero_time_step" ]
+  - [mech solver] lin. it: 17, reason: 2, residual: 4.94228e-10
+- -             [ Log , null, "00:00:00.222", "/src/io/output_time.cc", 229, "write_time_frame" ]
+  - Skipping output stream: /C/Plocha/Semestral_project/Python_skripts/data_vtu/yamls_dir/output3/mechanics.pvd in time: -1
+- -             [ Msg , null, "00:00:00.229", "/src/tools/time_governor.cc", 785, "view" ]
+  - TG[HM]:000001    t:    3.0000    dt:  3.000000    dt_int<  0.000000,  0.000000>
+- -             [ Log , null, "00:00:00.237", "/src/la/linsys_PETSC.cc", 371, "solve" ]
+  - inserting petsc options: -ksp_type cg -pc_type hypre -pc_hypre_type boomeramg
+- -             [ Log , null, "00:00:00.244", "/src/la/linsys_PETSC.cc", 409, "solve" ]
+  - convergence reason 2, number of iterations is 0
+- -             [ Msg , null, "00:00:00.244", "/src/mechanics/elasticity.cc", 592, "solve_linear_system" ]
+  - [mech solver] lin. it: 0, reason: 2, residual: 5.78409e-10
+- -             [ Msg , null, "00:00:00.245", "/src/coupling/hm_iterative.cc", 379, "compute_iteration_error" ]
+  - |
+    HM Iteration 1 abs. difference: 0  rel. difference: 0
+    --------------------------------------------------------
+- -             [ Log , null, "00:00:00.251", "/src/io/output_time.cc", 229, "write_time_frame" ]
+  - Skipping output stream: /C/Plocha/Semestral_project/Python_skripts/data_vtu/yamls_dir/output3/flow_fields.pvd in time: -1
+- -             [ Log , null, "00:00:00.259", "/src/io/output_time.cc", 214, "write_time_frame" ]
+  - Write output to output stream: /C/Plocha/Semestral_project/Python_skripts/data_vtu/yamls_dir/output3/mechanics.pvd for time: 0
+- -             [ Log , null, "00:00:00.260", "/src/io/output_vtk.cc", 187, "write_data" ]
+  - write_data: Writing output (frame: 0, rank: 0) file: mechanics/mechanics-000000.vtu ... 
+- -             [ Log , null, "00:00:00.282", "/src/io/output_vtk.cc", 198, "write_data" ]
+  - O.K.
+- -             [ Log , null, "00:00:00.287", "/src/io/output_time.cc", 229, "write_time_frame" ]
+  - Skipping output stream: /C/Plocha/Semestral_project/Python_skripts/data_vtu/yamls_dir/output3/flow_fields.pvd in time: -1
+- -             [ Log , null, "00:00:00.287", "/src/io/output_vtk.cc", 603, "write_tail" ]
+  - write_tail: Writing output file (tail) /C/Plocha/Semestral_project/Python_skripts/data_vtu/yamls_dir/output3/flow_fields.pvd ... 
+- -             [ Log , null, "00:00:00.287", "/src/io/output_vtk.cc", 608, "write_tail" ]
+  - O.K.
+- -             [ Log , null, "00:00:00.288", "/src/io/output_time.cc", 119, "~OutputTime" ]
+  - O.K.
+- -             [ Log , null, "00:00:00.290", "/src/io/output_time.cc", 214, "write_time_frame" ]
+  - Write output to output stream: /C/Plocha/Semestral_project/Python_skripts/data_vtu/yamls_dir/output3/mechanics.pvd for time: 3
+- -             [ Log , null, "00:00:00.291", "/src/io/output_vtk.cc", 187, "write_data" ]
+  - write_data: Writing output (frame: 1, rank: 0) file: mechanics/mechanics-000001.vtu ... 
+- -             [ Log , null, "00:00:00.314", "/src/io/output_vtk.cc", 198, "write_data" ]
+  - O.K.
+- -             [ Log , null, "00:00:00.314", "/src/io/output_vtk.cc", 603, "write_tail" ]
+  - write_tail: Writing output file (tail) /C/Plocha/Semestral_project/Python_skripts/data_vtu/yamls_dir/output3/mechanics.pvd ... 
+- -             [ Log , null, "00:00:00.315", "/src/io/output_vtk.cc", 608, "write_tail" ]
+  - O.K.
+- -             [ Log , null, "00:00:00.315", "/src/io/output_time.cc", 119, "~OutputTime" ]
+  - O.K.
