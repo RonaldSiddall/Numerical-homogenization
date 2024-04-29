@@ -1,7 +1,0 @@
-This vector is the result of automatic simulation
-Each result is the sum of the residues
-Results are written as: (n+1, n):result
-Type of geometry: sandwich
-Y1: 100
-Y2: 50
-------------------------------------------------
