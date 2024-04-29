@@ -131,18 +131,18 @@ class EffectiveElasticTensor:
             for vtu_file in self.vtu_dirs:
                 txt_file.write(f"{vtu_file}\n")
 
-    def write_constants_to_file(self, output_path):
-        coefficients = self.compute_effect_elast_constants_voigt()
-        with open(output_path, 'a') as file:
-            file.write("\n-----------------------------------------------------------------------------\n")
-            file.write(f"Results for {self.sample}, n = {self.n}, Y1 = {self.Y1}, Y2 = {self.Y2}\n")
-            file.write(f"{coefficients[0][0]}\n")
-            file.write(f"{coefficients[1][1]}\n")
-            file.write(f"{coefficients[2][2] / 2}\n")
-            file.write(f"{coefficients[2][1] / 2}\n")
-            file.write(f"{coefficients[2][0] / 2}\n")
-            file.write(f"{coefficients[1][0]}\n")
 
+def write_constants_to_file(self, output_path):
+    coefficients = self.compute_effect_elast_constants_voigt()
+    with open(output_path, 'a') as file:
+        file.write("\n-----------------------------------------------------------------------------\n")
+        file.write(f"Results for {self.sample}, n = {self.n}, Y1 = {self.Y1}, Y2 = {self.Y2}\n")
+        file.write(f"{coefficients[0][0]}\n")
+        file.write(f"{coefficients[1][1]}\n")
+        file.write(f"{coefficients[2][2] / 2}\n")
+        file.write(f"{coefficients[2][1] / 2}\n")
+        file.write(f"{coefficients[2][0] / 2}\n")
+        file.write(f"{coefficients[1][0]}\n")
 
-        delete_directory(self.dir_where_yamls_are_created, self.delete_yaml_dir_after_simulation)
-        delete_directory(self.directory_where_vtus_are_created, self.delete_vtu_dir_after_simulation)
+    delete_directory(self.dir_where_yamls_are_created, self.delete_yaml_dir_after_simulation)
+    delete_directory(self.directory_where_vtus_are_created, self.delete_vtu_dir_after_simulation)

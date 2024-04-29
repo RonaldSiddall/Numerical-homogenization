@@ -13,4 +13,4 @@ To be done list (or just ideas):
  - add a class diagram into GitHub?
  - consider function to make graphs directly from python?
  - consider adding functionality to change load matrices?
- 
+ - consider adding functionality to change load matrices?
