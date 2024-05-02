@@ -7,7 +7,7 @@ To be done list (or just ideas):
 
  - fix visualisation - perhaps save visualisation to pdf?
  - solve: how to run program from Windows (now only functional for Linux)
- - solve: how to make installations of modules (in Linux) automatic?
+ - ~~solve: how to make installations of modules (in Linux) automatic?~~
  - update user interface - needs reworking
  - fix time displaying in automatic simulating (time zone) - 2 hours off
  - add a class diagram into GitHub?
