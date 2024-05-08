@@ -9,14 +9,15 @@ from ConfigManager import ConfigManager
 
 
 def modify_n_in_config(config_file, new_n):
-    # load the original YAML configuration file
+    # loads the original .yaml configuration file
     with open(config_file, 'r') as file:
         config = yaml.safe_load(file)
 
-    # modify the value of n
+    # modifies the value of n in the confing file
     config["simulation_parameters"]["n"] = new_n
 
-    # write the modified data (the new value of n) back to a new temporary YAML file
+    # writes the modified data (the new value of n) back to a new temporary .yaml file
+    # this .yaml gets deleted after the computation
     temp_config_file = config_file.replace(".yaml", "_temp.yaml")
     with open(temp_config_file, 'w') as file:
         yaml.dump(config, file)
@@ -115,6 +116,7 @@ def write_results_to_file(config_file, start_n, end_n, step, output_file_tensor,
     Y2 = config_manager.get_Y2()
     sample = config_manager.get_sample()
 
+    # this is written at the begging of the file that containts the residues
     with open(output_file_residues, 'w') as file:
         file.write("This vector is the result of automatic simulation\n")
         file.write("Each result is the sum of the residues\n")
@@ -154,7 +156,7 @@ def write_results_to_file(config_file, start_n, end_n, step, output_file_tensor,
             print(f"Tolerance: {tolerance}")
             print("-------------------------------------------------")
 
-        # if no n within the given range satisfied the tolerance
+        # if no n within the given range satisfied the tolerance, this is outputted
         else:
             file.write("-------------------------------------------------\n")
             file.write(f"Optimal n not found within the given tolerance\n")
@@ -168,7 +170,8 @@ def write_results_to_file(config_file, start_n, end_n, step, output_file_tensor,
 
 if __name__ == "__main__":
     try:
-        # Check if the correct number of command-line arguments are provided
+        # Checks if the correct number of command-line arguments are provided
+        # if not, gives a warning message
         if len(sys.argv) != 8:
             print("-------------------------------------------------------------------------")
             print("\nAn error occurred during execution.")
@@ -177,7 +180,7 @@ if __name__ == "__main__":
             print("-------------------------------------------------------------------------")
             sys.exit(1)
 
-        # Extract command-line arguments
+        # Extracts command-line arguments
         config_file = sys.argv[1]
         start_n = int(sys.argv[2])
         end_n = int(sys.argv[3])
@@ -186,11 +189,11 @@ if __name__ == "__main__":
         output_file_residues = sys.argv[6]
         tolerance = float(sys.argv[7])
 
-        # Call main function with extracted arguments
+        # Calls main function with extracted arguments
         write_results_to_file(config_file, start_n, end_n, step, output_file_tensor, output_file_residues, tolerance)
 
     except Exception as error_message:
-        # Print error message if an exception occurs
+        # Prints error message if an exception occurs
         print("----------------------------------------------------------------------------")
         print("\nAn error occurred during execution. The error message is written below:\n")
         print(str(error_message)+"\n")

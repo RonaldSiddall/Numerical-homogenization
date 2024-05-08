@@ -124,7 +124,7 @@ class GenerateVtuFiles:
             if i == 2:
                 break
 
-    def compute_vtu_files(self):
+    def extract_vtu_files(self):
         self.compute_outputs_mechanics()
         extracted_files = []
         if self.change_names_of_computed_output_dirs == "yes":
