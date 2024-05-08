@@ -1,0 +1,14 @@
+============================================================================================
+                    Effective elastic tensor in matrix form for 2D problems
+============================================================================================
+
+            73.81537919579347           0.7197680236474644      -0.00012916870045901304
+C =         0.7197680236473514         73.81396535529225       1.9395047606476615e-05
+            -0.00012916870025809276          1.9395047286411653e-05      37.093813130071304
+
+
+--------------------------------------------------------------------------------------------
+This result was computed using these files:
+/C/Plocha/Semestral_project/Python_skripts/data_vtu/vtu_files/1_mechanics-00000.vtu
+/C/Plocha/Semestral_project/Python_skripts/data_vtu/vtu_files/2_mechanics-00000.vtu
+/C/Plocha/Semestral_project/Python_skripts/data_vtu/vtu_files/3_mechanics-00000.vtu
