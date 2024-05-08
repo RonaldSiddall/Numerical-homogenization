@@ -1,0 +1,43 @@
+# Author: Ronald Ch. Siddall
+
+flow123d_version: 3.1.0
+problem: !Coupling_Sequential
+  description: 2D linear elastic Dirichlet BC problem.
+  mesh:
+    mesh_file: /C/Plocha/Semestral_project/Python_skripts/data_vtu/example.msh
+  flow_equation: !Coupling_Iterative
+    input_fields:
+    time:
+      end_time: 3
+
+    flow_equation: !Flow_Darcy_LMH
+      input_fields:
+      output:
+        fields: []
+
+    mechanics_equation:
+      output_stream:
+        file: mechanics.pvd
+        format: !vtk
+      output:
+        fields:
+        - displacement
+        - stress
+        - displacement_divergence
+        - region_id
+      solver: !Petsc
+        a_tol: 1e-20
+        r_tol: 1e-15
+      input_fields:
+      - region: region_A
+        young_modulus: 100
+        poisson_ratio: 0
+
+      - region: region_B
+        young_modulus: 50
+        poisson_ratio: 0
+
+      - region: .BOUNDARY
+        bc_type: displacement
+        bc_displacement: !FieldFormula
+          value: [0,y,0]
