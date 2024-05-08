@@ -10,12 +10,12 @@ from ConfigManager import ConfigManager
 def delete_directory(directory_path, decider_deletion):
     if decider_deletion == "yes":
         try:
-            # Attempt to delete the directory
+            # Attempts to delete the directory
             shutil.rmtree(directory_path)
-            # Print a message if deletion is successful
+            # Prints a message if deletion is successful
             print(f"\n  - Directory '{directory_path}' was deleted after the computation")
         except Exception as e:
-            # Print an error message if deletion fails
+            # Prints an error message if deletion fails
             print(f"Error deleting directory '{directory_path}': {e}")
 
 
@@ -27,22 +27,14 @@ class EffectiveElasticTensor:
         self.Y2 = ConfigManager(config_file).get_Y2()
         self.name_of_file_with_tensor = ConfigManager(config_file).get_name_of_file_with_tensor()
         self.output_dir_of_file_with_tensor = ConfigManager(config_file).get_output_dir_of_file_with_tensor()
-        self.want_to_display_visualisation = ConfigManager(config_file).get_want_to_display_visualisation()
-        self.what_to_display = ConfigManager(config_file).get_what_to_display()
         self.delete_yaml_dir_after_simulation = ConfigManager(config_file).get_delete_yaml_dir_after_simulation()
         self.delete_vtu_dir_after_simulation = ConfigManager(config_file).get_delete_vtu_dir_after_simulation()
         self.dir_where_yamls_are_created = ConfigManager(config_file).get_dir_where_yamls_are_created()
         self.directory_where_vtus_are_created = ConfigManager(config_file).get_directory_where_vtus_are_created()
-        self.vtu_dirs = GenerateVtuFiles(file_msh, config_file).compute_vtu_files()
+        self.vtu_dirs = GenerateVtuFiles(file_msh, config_file).extract_vtu_files()
         self.meshes = []
         for vtu_file in self.vtu_dirs:
             self.meshes.append(pv.UnstructuredGrid(vtu_file))
-
-    def get_source_files(self):
-        return self.vtu_dirs
-
-    def compute_meshes(self):
-        return self.meshes
 
     def compute_sigmas(self):
         sigmas = []
@@ -55,27 +47,6 @@ class EffectiveElasticTensor:
         for mesh in self.meshes:
             mesh_with_areas.append(mesh.compute_cell_sizes(area=True).get_array("Area"))
         return mesh_with_areas
-
-    def compute_multiplied_area_stresses(self):
-        multiplied_area_stresses = []
-        for mesh, sigma, area in zip(self.meshes, self.compute_sigmas(), self.compute_meshes_with_areas()):
-            stress_area = []
-            for i in range(len(sigma)):
-                stress_area.append(sigma[i, :] * area[i])
-            multiplied_area_stresses.append(stress_area)
-        return multiplied_area_stresses
-
-    def compute_mean_stresses(self):
-        mean_stresses = []
-        for stress in self.compute_multiplied_area_stresses():
-            mean_stresses.append(np.mean(stress, axis=0))
-        return mean_stresses
-
-    def compute_sum_areas_of_all_elements(self):
-        sum_areas = []
-        for area in self.compute_meshes_with_areas():
-            sum_areas.append(np.sum(area))
-        return sum_areas
 
     def compute_effect_elast_constants_voigt(self):
         constants_voigt_list = []
@@ -96,17 +67,7 @@ class EffectiveElasticTensor:
             constants_voigt_list.append(constants_voigt)
         return constants_voigt_list
 
-    def compute_reduced_voigt_vector(self):
-        self.compute_effect_elast_constants_voigt()
-
-    def visualize_all_vtu_files(self):
-        if self.want_to_display_visualisation.lower() == "yes":
-            for mesh in self.meshes:
-                mesh.cell_data.get(self.what_to_display)
-                mesh.plot(scalars=self.what_to_display)
-
     def get_tensor_in_txt_formatted(self):
-        self.visualize_all_vtu_files()
         coefficients = self.compute_effect_elast_constants_voigt()
         os.makedirs(self.output_dir_of_file_with_tensor, exist_ok=True)
         GenerateVtuFiles.delete_directory_contents(self.output_dir_of_file_with_tensor)
