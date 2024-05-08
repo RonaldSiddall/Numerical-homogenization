@@ -58,7 +58,7 @@ class GenerateMesh:
 
         return lines_on_left_boundary, lines_on_right_boundary, lines_on_top_boundary, lines_on_bottom_boundary
 
-    #this method creates the surfaces within the 2D geometry and returns the surface indexes
+    # this method creates the surfaces within the 2D geometry and returns the surface indexes
     def create_surfaces(self):
         surface_indixes = {}
         for i in range(self.n):
@@ -131,6 +131,7 @@ class GenerateMesh:
                         region_A.append(surface_index)
         return region_A, region_B
 
+    # this method generates the mesh based on the sample
     def generate_mesh_based_on_sample(self):
         lines_on_left_boundary, lines_on_right_boundary, lines_on_top_boundary, lines_on_bottom_boundary = self.create_points_and_lines()
         if self.sample == "chessboard":
