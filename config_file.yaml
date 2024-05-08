@@ -3,47 +3,39 @@
  # of the numerical homogenization of mechanical properties for 2D problems.
  
  # The config file allows the user to change the simulation parameters such as mesh dimensions, material
- # properties, load matrices and has a choice between three different geometries
+ # properties, load matrices and has a choice between two different geometries
  
  # Apart from that the user can adjust the directory settings for input/output files,
  # settings for the file with the results and additional settings for the simulation process.
 
 simulation_parameters:
-  n: 3  # Amount of regions in mesh is n^2 = mesh has dimensions n x n
-  sample: "sandwich"  # Type of geometry - "chessboard", "sandwich"
+  n: 3  # Amount of regions in a mesh is n^2 => mesh has dimensions n x n
+  sample: "chessboard"  # Type of geometry - either "chessboard" or "sandwich"
   Y1: 100  # Young modulus Y1 for region A
   Y2: 50  # Young modulus Y2 for region B
-  lc_parameter: 0.16
-  E1:       # first load matrix
-    - [1, 0]
-    - [0, 0]
-  E2:       # second load matrix
-    - [0, 0]
-    - [0, 1]
-  E3:       # third load matrix
-    - [0, 1]
-    - [1, 0]
+  lc_parameter: 0.16 # parameter for meshing
 
 directories:
   # if the directory does not exist, then it is created
   # if the directory already exists, then all the contents within the directory are deleted beforehand
-  dir_where_yamls_are_created: "/C/Plocha/Semestral_project/Python_skripts/data_vtu/yamls_dir"
-  absolute_path_to_yaml_template: "/C/Plocha/Semestral_project/Python_skripts/data_vtu/TEMPLATE_DO_NOT_DELETE/template.yaml"
-  directory_where_vtus_are_created: "/C/Plocha/Semestral_project/Python_skripts/data_vtu/vtu_files"
-  dir_where_mesh_and_geo_are_created: "/C/Plocha/Semestral_project/Python_skripts/data_vtu/"
+  # absolute_path_to_dir_with_data should contain the skripts downloaded
+  # all other dirs are relative to the absolute path
+  absolute_path_to_dir_with_data: "/C/Plocha/Semestral_project/Python_skripts"
+  dir_where_yamls_are_created: "/data_vtu/yamls_dir"
+  absolute_path_to_yaml_template: "/data_vtu/TEMPLATE_DO_NOT_DELETE/template.yaml"
+  directory_where_vtus_are_created: "/data_vtu/vtu_files"
+  dir_where_mesh_and_geo_are_created: "/data_vtu/"
 
 
 results_file_settings:
-  #the file is always a .txt file
-  name_of_file_with_tensor: "soubor"
+  #the file is always a .txt file so no need for .txt
+  name_of_file_with_tensor: "example_tensor"
   # if the output directory for the file with the results does not exist, then it is created
   # if the output directory already exists, then all the contents within the dir are deleted beforehand
-  output_dir_of_file_with_tensor: "/C/Plocha/Semestral_project/Python_skripts/results_elastic_tensor"
+  # this dir is relative to the absolute path
+  output_dir_of_file_with_tensor: "/results_elastic_tensor"
 
 additional_settings:
-  #TODO - fix visualisation
-  want_to_display_visualisation: "no"  # Do you want to display visualization ? - write "yes" to display
-  what_to_display: "region_id"  # What to display ("displacement", "stress", "region_id" etc.)
 
   delete_yaml_dir_after_simulation: "no"  # Do you want to delete the YAML directory after simulation?
   delete_vtu_dir_after_simulation: "no"  # Do you want to delete the VTU directory after simulation?
@@ -69,18 +61,18 @@ additional_settings:
   # Do you want to change the name of the generated mesh file?
   # "yes" - then the mesh file is created with the name taken from new_name_of_mesh
   # "no" - default setting of mesh file is given - generated_mesh.msh
-  change_name_of_msh_file: "no"
-  new_name_of_mesh: "name1.msh"
+  change_name_of_msh_file: "yes"
+  new_name_of_mesh: "example.msh"
 
   # Do you want to create a .geo file with the geometry (points, lines, surfaces, phys. groups)?
-  create_geo_file: "no"
+  create_geo_file: "yes"
 
   # if you chose "yes" to create geo file, then this is relevant, otherwise not:
   # Do you want to change the name of the generated mesh file?
   # "yes" - then the geo file is created with the name taken from new_name_of_geo
   # "no" - default setting of mesh file is given - generated_geo.geo_unrolled
-  change_name_of_geo_file: "no"
-  new_name_of_geo: "name1.geo_unrolled"
+  change_name_of_geo_file: "yes"
+  new_name_of_geo: "example.geo_unrolled"
 
   # Do you want to measure the time it took to do the computation?
-  measure_time_of_computation: "no"
+  measure_time_of_computation: "yes"
