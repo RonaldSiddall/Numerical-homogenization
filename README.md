@@ -5,7 +5,6 @@ In the future, a README will be written here to describe the correct use of the 
 
 To be done list (or just ideas):
 
- - fix visualisation - perhaps save visualisation to pdf?
  - solve: how to run program from Windows (now only functional for Linux)
  - ~~solve: how to make installations of modules (in Linux) automatic?~~
  - update user interface - needs reworking

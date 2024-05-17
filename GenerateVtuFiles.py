@@ -17,7 +17,7 @@ class GenerateVtuFiles:
         self.Y1 = ConfigManager(config_file).get_Y1()
         self.Y2 = ConfigManager(config_file).get_Y2()
         self.dir_where_yamls_are_created = ConfigManager(config_file).get_dir_where_yamls_are_created()
-        self.absolute_path_to_yaml_template = ConfigManager(config_file).get_absolute_path_to_yaml_template()
+        self.absolute_path_to_yaml_template = ConfigManager(config_file).get_path_to_yaml_template()
         self.directory_where_vtus_are_created = ConfigManager(config_file).get_directory_where_vtus_are_created()
         self.change_names_of_computed_yamls = ConfigManager(config_file).get_change_names_of_computed_yamls()
         self.new_names_of_yamls = ConfigManager(config_file).get_new_names_of_yamls()

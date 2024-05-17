@@ -47,8 +47,8 @@ class ConfigManager:
     def get_dir_where_yamls_are_created(self):
         return self.get_absolute_path_to_dir_with_data() + self.config_data["directories"]["dir_where_yamls_are_created"]
 
-    def get_absolute_path_to_yaml_template(self):
-        return self.get_absolute_path_to_dir_with_data() + self.config_data["directories"]["absolute_path_to_yaml_template"]
+    def get_path_to_yaml_template(self):
+        return self.get_absolute_path_to_dir_with_data() + self.config_data["directories"]["path_to_yaml_template"]
 
     def get_directory_where_vtus_are_created(self):
         return self.get_absolute_path_to_dir_with_data() + self.config_data["directories"]["directory_where_vtus_are_created"]

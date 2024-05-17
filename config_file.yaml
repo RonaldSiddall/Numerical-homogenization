@@ -20,11 +20,11 @@ directories:
   # if the directory already exists, then all the contents within the directory are deleted beforehand
   # absolute_path_to_dir_with_data should contain the skripts downloaded
   # all other dirs are relative to the absolute path
-  absolute_path_to_dir_with_data: "/C/Plocha/Semestral_project/Python_skripts"
-  dir_where_yamls_are_created: "/data_vtu/yamls_dir"
-  absolute_path_to_yaml_template: "/data_vtu/TEMPLATE_DO_NOT_DELETE/template.yaml"
-  directory_where_vtus_are_created: "/data_vtu/vtu_files"
-  dir_where_mesh_and_geo_are_created: "/data_vtu/"
+  absolute_path_to_dir_with_data: "/C/Plocha/Semestral_project/Python_skripts/"
+  dir_where_yamls_are_created: "data_vtu/yamls_dir"
+  path_to_yaml_template: "data_vtu/TEMPLATE_DO_NOT_DELETE/template.yaml"
+  directory_where_vtus_are_created: "data_vtu/vtu_files"
+  dir_where_mesh_and_geo_are_created: "data_vtu/"
 
 
 results_file_settings:
