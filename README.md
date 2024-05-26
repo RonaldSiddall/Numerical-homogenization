@@ -21,7 +21,7 @@ The only complication is the need to reinstall some Python modules/packages (e.g
 If the Dockerfile lists all the necessary Python libraries, you can start the Flow123d terminal using the `fterm_siddall.bat` file.
 
 ## Additional information
-For an in-depth guide on how to use this program, including detailed information on its functionality, structure, and some example problems, please refer to one of these documents:     
+For an in-depth guide on how to use this program, including detailed information on its functionality, structure, and some example problems, please refer to (specifically chapters 4 and 5) in one of these documents:     
 
   - **Numerická_homogenizace_Siddall-FINAL.pdf** (czech version) 
   - **Numerical_homogenization_Siddall-AJ.pdf** (english version)
