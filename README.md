@@ -1,6 +1,15 @@
 # Numerical homogenisation of mechanical properties
 ## Semestral project - Ronald Ch. Siddall, AVI FM TUL
-This project implements a program for numerical homogenization of mechanical properties, specifically designed for computational simulation using Flow123d. The program includes several auxiliary software components and scripts to streamline the entire process from user input to result output.
+This program does numerical homogenization of mechanical properties using the Flow123d simulator for two dimensional problems. 
+
+It solves two types of microstructures:
+ - chessboard 
+ - sandwich 
+
+There are two possible modes that can be used in this program:
+ - for a single chosen n 
+ - for a given sequence of n
+
 ## Prerequisites
 To use the implemented program for numerical homogenization, you need to first install/download this software:
 
